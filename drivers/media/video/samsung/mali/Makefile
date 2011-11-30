@@ -178,6 +178,7 @@ UKKFILES=\
         $(FILES_PREFIX)$(OSKOS)/mali_ukk_mem.o \
         $(FILES_PREFIX)$(OSKOS)/mali_ukk_gp.o \
         $(FILES_PREFIX)$(OSKOS)/mali_ukk_pp.o \
+        $(FILES_PREFIX)$(OSKOS)/mali_ukk_vsync.o \
         $(FILES_PREFIX)$(OSKOS)/mali_ukk_core.o
 
 mali-y := \
@@ -186,6 +187,8 @@ mali-y := \
 	$(KBUILDROOT)linux/mali_osk_indir_mmap.o \
 	$(KBUILDROOT)common/mali_kernel_rendercore.o \
 	$(KBUILDROOT)common/mali_kernel_descriptor_mapping.o \
+	$(KBUILDROOT)common/mali_kernel_vsync.o \
+	$(KBUILDROOT)linux/mali_kernel_sysfs.o \
 	$(KBUILDROOT)$(MALI_PLATFORM_FILE) \
 	$(KBUILDROOT)$(OSKFILES) \
 	$(KBUILDROOT)$(UKKFILES) 

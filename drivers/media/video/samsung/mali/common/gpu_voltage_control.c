@@ -18,11 +18,16 @@
 
 #include "gpu_voltage_control.h"
 
-#if defined(CONFIG_GPU_UNDERVOLTING)
-int gpu_voltage_control[2] = { 850000, 925000 };
+#ifdef CONFIG_GPU_UNDERVOLTING
+#define MIN_VOLTAGE_GPU 900000
+#define MAX_VOLTAGE_GPU 950000
 #else
-int gpu_voltage_control[2] = { 950000, 1000000 };
+#define MIN_VOLTAGE_GPU  900000
+#define MAX_VOLTAGE_GPU 1100000
 #endif
+
+
+int gpu_voltage_control[2] = { 900000, 950000 };
 static ssize_t gpu_voltage_show(struct device *dev, struct device_attribute *attr, char *buf) {
 	return sprintf(buf, "Step1: %d\nStep2: %d\n", gpu_voltage_control[0], gpu_voltage_control[1]);
 }
@@ -38,11 +43,11 @@ static ssize_t gpu_voltage_store(struct device *dev, struct device_attribute *at
        else {
                 /* safety floor and ceiling - netarchy */
                 for( i = 0; i < 2; i++ ) {
-                        if (gpu_voltage_control[i] < 500000) {
-                                gpu_voltage_control[i] = 500000;
+                        if (gpu_voltage_control[i] < MIN_VOLTAGE_GPU) {
+                                gpu_voltage_control[i] = MIN_VOLTAGE_GPU;
                         }
-                        else if (gpu_voltage_control[i] > 1200000) {
-                                gpu_voltage_control[i] = 1200000;
+                        else if (gpu_voltage_control[i] > MAX_VOLTAGE_GPU) {
+                                gpu_voltage_control[i] = MAX_VOLTAGE_GPU;
                         }
                 }
         }
