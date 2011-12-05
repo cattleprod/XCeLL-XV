@@ -3,7 +3,7 @@
  * them to run sooner, but does not allow tons of sleepers to
  * rip the spread apart.
  */
-SCHED_FEAT(GENTLE_FAIR_SLEEPERS, 0)
+SCHED_FEAT(FAIR_SLEEPERS, 0)
 SCHED_FEAT(FAIR_SLEEPERS_INTERACTIVE, 1) /* Selects interactive wakeups */
 SCHED_FEAT(GENTLE_FAIR_SLEEPERS, 0)
 
