@@ -9,24 +9,26 @@ TAR_NAME=zImage.tar
 
 TOOLCHAIN="/home/legend/android/toolchains/4.5.4/android-toolchain-eabi/bin/arm-eabi-"
 # TOOLCHAIN="/home/neophyte-x360/toolchain/bin/arm-none-eabi-"
-ROOTFS_PATH="/home/legend/android/initramfs/miui-initramfs-x/"
+ROOTFS_PATH="/home/legend/android/initramfs/hk32/"
 
 
 
 echo "Cleaning latest build"
 make ARCH=arm CROSS_COMPILE=$TOOLCHAIN -j`grep 'processor' /proc/cpuinfo | wc -l` clean
 
-cp -f $KERNEL_PATH/arch/arm/configs/c1_galaxys2_defconfig $KERNEL_PATH/.config
+cp -f $KERNEL_PATH/arch/arm/configs/XCeLL-defconfig $KERNEL_PATH/.config
 
 make -j4 -C $KERNEL_PATH xconfig || exit -1
 make -j4 -C $KERNEL_PATH ARCH=arm CROSS_COMPILE=$TOOLCHAIN || exit -1
 
 cp drivers/bluetooth/bthid/bthid.ko $ROOTFS_PATH/lib/modules/
+cp drivers/media/video/gspca/gspca_main.ko $ROOTFS_PATH/lib/modules/
 cp drivers/net/wireless/bcm4330/dhd.ko $ROOTFS_PATH/lib/modules/
 cp drivers/samsung/j4fs/j4fs.ko $ROOTFS_PATH/lib/modules/
 cp drivers/samsung/fm_si4709/Si4709_driver.ko $ROOTFS_PATH/lib/modules/
 cp drivers/scsi/scsi_wait_scan.ko $ROOTFS_PATH/lib/modules/
 cp drivers/samsung/vibetonz/vibrator.ko $ROOTFS_PATH/lib/modules/
+cp drivers/staging/android/logger.ko $ROOTFS_PATH/lib/modules/
 
 make -j4 -C $KERNEL_PATH ARCH=arm CROSS_COMPILE=$TOOLCHAIN || exit -1
 
