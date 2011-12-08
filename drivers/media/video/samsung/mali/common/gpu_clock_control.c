@@ -16,15 +16,11 @@
 
 #include "gpu_clock_control.h"
 
-#ifndef CONFIG_GPU_UNDERVOLTING
-#define GPU_MAX_CLOCK 200
-#define GPU_MIN_CLOCK 100
+#if defined(CONFIG_GPU_UNDERVOLTING)
+int gpu_clock_control[2] = { 100, 200 };
 #else
-#define GPU_MAX_CLOCK 300
-#define GPU_MIN_CLOCK 100
-#endif
-
 int gpu_clock_control[2] = { 160, 267 };
+#endif
 static ssize_t gpu_clock_show(struct device *dev, struct device_attribute *attr, char *buf) {
 	return sprintf(buf, "Step0: %d\nStep1: %d\n", gpu_clock_control[0], gpu_clock_control[1]);
 }
@@ -40,11 +36,11 @@ static ssize_t gpu_clock_store(struct device *dev, struct device_attribute *attr
 	else {
 		/* safety floor and ceiling - netarchy */
 		for( i = 0; i < 2; i++ ) {
-			if (gpu_clock_control[i] < GPU_MIN_CLOCK) {
-				gpu_clock_control[i] = GPU_MIN_CLOCK;
+			if (gpu_clock_control[i] < 10) {
+				gpu_clock_control[i] = 10;
 			}
-			else if (gpu_clock_control[i] > GPU_MAX_CLOCK) {
-				gpu_clock_control[i] = GPU_MAX_CLOCK;
+			else if (gpu_clock_control[i] > 450) {
+				gpu_clock_control[i] = 450;
 			}
 		}
 	}
@@ -67,7 +63,7 @@ static struct miscdevice gpu_clock_control_device = {
 	.name = "gpu_clock_control",
 };
 
-void gpu_clock_control_start()
+void gpu_control_start()
 {
 	printk("Initializing gpu clock control interface\n");
 	
