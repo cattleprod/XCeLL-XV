@@ -126,7 +126,7 @@ static void cpu_hotplug_done(void)
 bool cpu_hotplug_inprogress(void)
 {
 	if (cpu_hotplug.active_writer)
-		return ture;
+		return true;
 		
 	return false;
 }
