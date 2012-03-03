@@ -17,7 +17,7 @@
 #include "gpu_clock_control.h"
 
 #if defined(CONFIG_GPU_UNDERVOLTING)
-int gpu_clock_control[2] = { 100, 200 };
+int gpu_clock_control[2] = { 100, 267 };
 #else
 int gpu_clock_control[2] = { 160, 267 };
 #endif
