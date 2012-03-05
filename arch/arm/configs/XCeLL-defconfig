@@ -55,6 +55,7 @@ CONFIG_SYSVIPC_SYSCTL=y
 # CONFIG_BSD_PROCESS_ACCT is not set
 # CONFIG_TASKSTATS is not set
 # CONFIG_AUDIT is not set
+# CONFIG_TARGET_CM_KERNEL is not set
 
 #
 # RCU Subsystem
@@ -90,7 +91,7 @@ CONFIG_RT_GROUP_SCHED=y
 # CONFIG_RELAY is not set
 # CONFIG_NAMESPACES is not set
 CONFIG_BLK_DEV_INITRD=y
-CONFIG_INITRAMFS_SOURCE="/home/legend/android/initramfs/hk32/"
+CONFIG_INITRAMFS_SOURCE="/home/legend/android/initramfs/hk33/"
 CONFIG_RD_GZIP=y
 # CONFIG_RD_BZIP2 is not set
 CONFIG_RD_LZMA=y
