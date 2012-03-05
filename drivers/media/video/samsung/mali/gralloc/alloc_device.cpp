@@ -78,7 +78,7 @@ static int gralloc_alloc_buffer(alloc_device_t* dev, size_t size, int usage, buf
 			{
 				LOGE("gralloc_alloc_buffer() failed to retrieve valid secure id");
 			}
-
+			
 			ump_mapped_pointer_release(ump_mem_handle);
 		}
 		else
@@ -99,7 +99,7 @@ static int gralloc_alloc_buffer(alloc_device_t* dev, size_t size, int usage, buf
 static int gralloc_alloc_framebuffer_locked(alloc_device_t* dev, size_t size, int usage, buffer_handle_t* pHandle)
 {
 	private_module_t* m = reinterpret_cast<private_module_t*>(dev->common.module);
-
+    
 	// allocate the framebuffer
 	if (m->framebuffer == NULL)
 	{
@@ -168,19 +168,19 @@ static int alloc_device_alloc(alloc_device_t* dev, int w, int h, int format, int
 
 	size_t size;
 	size_t stride;
-	if (format == HAL_PIXEL_FORMAT_YCbCr_420_SP ||
+	if (format == HAL_PIXEL_FORMAT_YCbCr_420_SP || 
 	    format == HAL_PIXEL_FORMAT_YCbCr_422_SP ||
-		 format == HAL_PIXEL_FORMAT_YV12 )
+		 format == HAL_PIXEL_FORMAT_YV12 ) 
 	{
 		int vstride;
 		switch (format)
 		{
 			case HAL_PIXEL_FORMAT_YCbCr_420_SP:
-				stride = (w + 1) & ~1;
+				stride = (w + 1) & ~1; 
 				size = stride * h * 2;
 				break;
 			case HAL_PIXEL_FORMAT_YCbCr_422_SP:
-				stride = (w + 1) & ~1;
+				stride = (w + 1) & ~1; 
 				vstride = (h+1) & ~1;
 				size = (stride * vstride) + (w/2 * h/2) * 2;
 				break;
@@ -252,7 +252,7 @@ static int alloc_device_free(alloc_device_t* dev, buffer_handle_t handle)
 		private_module_t* m = reinterpret_cast<private_module_t*>(dev->common.module);
 		const size_t bufferSize = m->finfo.line_length * m->info.yres;
 		int index = (hnd->base - m->framebuffer->base) / bufferSize;
-		m->bufferMask &= ~(1<<index);
+		m->bufferMask &= ~(1<<index); 
 		close(hnd->fd);
 	}
 	else if (hnd->flags & private_handle_t::PRIV_FLAGS_USES_UMP)
@@ -280,7 +280,7 @@ static int alloc_device_close(struct hw_device_t *device)
 int alloc_device_open(hw_module_t const* module, const char* name, hw_device_t** device)
 {
 	alloc_device_t *dev;
-
+	
 	dev = new alloc_device_t;
 	if (NULL == dev)
 	{

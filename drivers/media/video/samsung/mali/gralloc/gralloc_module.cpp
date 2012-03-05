@@ -124,7 +124,7 @@ static int gralloc_unregister_buffer(gralloc_module_t const* module, buffer_hand
 	}
 
 	private_handle_t* hnd = (private_handle_t*)handle;
-
+    
 	LOGE_IF(hnd->lockState & private_handle_t::LOCK_STATE_READ_MASK, "[unregister] handle %p still locked (state=%08x)", hnd, hnd->lockState);
 
 	// never unmap buffers that were created in this process

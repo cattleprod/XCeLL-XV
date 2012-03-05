@@ -84,10 +84,10 @@ static int fb_post(struct framebuffer_device_t* dev, buffer_handle_t buffer)
 #ifdef STANDARD_LINUX_SCREEN
 #define FBIO_WAITFORVSYNC       _IOW('F', 0x20, __u32)
 #define S3CFB_SET_VSYNC_INT	_IOW('F', 206, unsigned int)
-		if (ioctl(m->framebuffer->fd, FBIOPAN_DISPLAY, &m->info) == -1)
+		if (ioctl(m->framebuffer->fd, FBIOPAN_DISPLAY, &m->info) == -1) 
 		{
 			LOGE("FBIOPAN_DISPLAY failed");
-			m->base.unlock(&m->base, buffer);
+			m->base.unlock(&m->base, buffer); 
 			return 0;
 		}
 
@@ -102,7 +102,7 @@ static int fb_post(struct framebuffer_device_t* dev, buffer_handle_t buffer)
 #ifdef MALI_VSYNC_EVENT_REPORT_ENABLE
 		gralloc_mali_vsync_report(MALI_VSYNC_EVENT_BEGIN_WAIT);
 #endif
-                if(ioctl(m->framebuffer->fd, FBIO_WAITFORVSYNC, 0) < 0)
+                if(ioctl(m->framebuffer->fd, FBIO_WAITFORVSYNC, 0) < 0) 
 		{
                     LOGE("FBIO_WAITFORVSYNC failed");
 #ifdef MALI_VSYNC_EVENT_REPORT_ENABLE
@@ -120,7 +120,7 @@ static int fb_post(struct framebuffer_device_t* dev, buffer_handle_t buffer)
                     LOGE("S3CFB_SET_VSYNC_INT disable failed");
                     return 0;
                 }
-#else
+#else 
 		/*Standard Android way*/
 #ifdef MALI_VSYNC_EVENT_REPORT_ENABLE
 		gralloc_mali_vsync_report(MALI_VSYNC_EVENT_BEGIN_WAIT);
@@ -131,7 +131,7 @@ static int fb_post(struct framebuffer_device_t* dev, buffer_handle_t buffer)
 #ifdef MALI_VSYNC_EVENT_REPORT_ENABLE
 			gralloc_mali_vsync_report(MALI_VSYNC_EVENT_END_WAIT);
 #endif
-			m->base.unlock(&m->base, buffer);
+			m->base.unlock(&m->base, buffer); 
 			return -errno;
 		}
 #ifdef MALI_VSYNC_EVENT_REPORT_ENABLE
@@ -140,7 +140,7 @@ static int fb_post(struct framebuffer_device_t* dev, buffer_handle_t buffer)
 #endif
 
 		m->currentBuffer = buffer;
-	}
+	} 
 	else
 	{
 		void* fb_vaddr;
@@ -149,13 +149,13 @@ static int fb_post(struct framebuffer_device_t* dev, buffer_handle_t buffer)
 		m->base.lock(&m->base, m->framebuffer, GRALLOC_USAGE_SW_WRITE_RARELY, 
 				0, 0, m->info.xres, m->info.yres, &fb_vaddr);
 
-		m->base.lock(&m->base, buffer, GRALLOC_USAGE_SW_READ_RARELY,
+		m->base.lock(&m->base, buffer, GRALLOC_USAGE_SW_READ_RARELY, 
 				0, 0, m->info.xres, m->info.yres, &buffer_vaddr);
 
 		memcpy(fb_vaddr, buffer_vaddr, m->finfo.line_length * m->info.yres);
 
-		m->base.unlock(&m->base, buffer);
-		m->base.unlock(&m->base, m->framebuffer);
+		m->base.unlock(&m->base, buffer); 
+		m->base.unlock(&m->base, m->framebuffer); 
 	}
 
 	return 0;
@@ -167,7 +167,7 @@ int init_frame_buffer_locked(struct private_module_t* module)
 	{
 		return 0; // Nothing to do, already initialized
 	}
-
+        
 	char const * const device_template[] =
 	{
 		"/dev/graphics/fb%u",
@@ -338,7 +338,7 @@ int init_frame_buffer_locked(struct private_module_t* module)
 	 */
 	size_t fbSize = round_up_to_page_size(finfo.line_length * info.yres_virtual);
 	void* vaddr = mmap(0, fbSize, PROT_READ|PROT_WRITE, MAP_SHARED, fd, 0);
-	if (vaddr == MAP_FAILED)
+	if (vaddr == MAP_FAILED) 
 	{
 		LOGE("Error mapping the framebuffer (%s)", strerror(errno));
 		return -errno;
@@ -392,7 +392,7 @@ int compositionComplete(struct framebuffer_device_t* dev)
 	   since the Applications that render the SourceBuffers (Layers) still get the 
 	   full renderpipeline using asynchronouls rendering. So they perform at maximum speed,
 	   and because of their complexity compared to the Surface flinger jobs, the Surface flinger
-	   is normally faster even if it does everyhing synchronous and serial.
+	   is normally faster even if it does everyhing synchronous and serial. 
 	   */
 	return 0;
 }
