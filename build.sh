@@ -7,9 +7,9 @@ KERNEL_PATH=/home/legend/android/kernel/XCeLL-XV
 # TODO: Set toolchain and root filesystem path
 TAR_NAME=zImage.tar
 
-TOOLCHAIN="/home/legend/android/toolchains/arm-2011.03/bin/arm-none-eabi-"
+TOOLCHAIN="/home/legend/android/toolchains/4.4/android-toolchain-eabi/bin/arm-eabi-"
 # TOOLCHAIN="/home/neophyte-x360/toolchain/bin/arm-none-eabi-"
-ROOTFS_PATH="/home/legend/android/initramfs/hk32/"
+ROOTFS_PATH="/home/legend/android/initramfs/miui-initramfs-x/"
 
 
 
